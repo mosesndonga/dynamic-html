@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Time Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            transition: background-color 0.5s, color 0.5s;
+        }
+        #time {
+            font-size: 2em;
+            margin-top: 20px;
+        }
+        .light-mode {
+            background-color: white;
+            color: black;
+        }
+        .dark-mode {
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+<body class="light-mode" onload="updateTime()">
+    <h1>Current Time</h1>
+    <div id="time"></div>
+    <button onclick="toggleMode()">Toggle Light/Dark Mode</button>
+
+    <script>
+        function updateTime() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const timeString = `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            document.getElementById('time').innerText = timeString;
+
+            if (hours >= 6 && hours < 12) {
+                document.body.style.backgroundColor = 'yellow'; 
+            } else if (hours >= 12 && hours < 18) {
+                document.body.style.backgroundColor = '#skyblue'; 
+            } else {
+                document.body.style.backgroundColor = 'darkblue'; 
+            }
+
+            setTimeout(updateTime, 1000);
+        }
+
+        function toggleMode() {
+            document.body.classList.toggle("dark-mode");
+            document.body.classList.toggle("light-mode");
+        }
+    </script>
+</body>
+</html>
